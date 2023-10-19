@@ -24,13 +24,15 @@ mehsulElaveEtInputu.addEventListener("click", function () {
       qiymeti: qiymetIputu.value,
       endirimliQiymet: endirimqiymetInputu.value,
     });
+    localStorage.setItem("data",JSON.stringify(ProductsArr));
   }
   mehsullariGetir();
 });
 
 const mehsullariGetir = () => {
   tbody.innerHTML = "";
-  ProductsArr.forEach(function (item, index) {
+  ls=JSON.parse(localStorage.getItem("data"));
+  ls.forEach(function (item, index) {
     console.log(item);
     tbody.innerHTML += `
                             <tr>
@@ -59,7 +61,15 @@ const editButton = (id) => {
   mehsullariGetir();
 };
 const deleteButton = (id) => {
-  ProductsArr = ProductsArr.filter((item) => item.id != id);
+  ls=JSON.parse(localStorage.getItem("data"));
+
+  newls = ls.filter((item) => item.id != id);
+  localStorage.removeItem('data')
+  localStorage.setItem("data",JSON.stringify(newls));
+
   console.log(ProductsArr);
   mehsullariGetir()
 };
+
+
+
